@@ -188,6 +188,13 @@
       : cardEl;
 
     creditedCardEl.classList.add("voted");
+    // Fun little wobble on OCTAVIAN himself when he steals the round — the
+    // shake effect lives on, it's just never applied to the card the user
+    // actually clicked (that one gets no reaction at all, so nothing gives
+    // the rig away).
+    if (octavianShown && clicked.id !== OCTAVIAN_ID) {
+      creditedCardEl.classList.add("shake-win");
+    }
     floatText(creditedCardEl, "+1");
     noteEl.textContent = "Stimme gezählt!";
 

@@ -13,6 +13,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
   always targets the credited teacher's card, never the one actually clicked.
   Previously a misclick against Octavian flashed briefly on the wrong card
   before switching, which gave the rig away.
+- Re-added a celebratory shake animation, scoped only to Octavian's own card
+  when he steals a round — the misclicked card is still never animated.
 
 ### Added
 
