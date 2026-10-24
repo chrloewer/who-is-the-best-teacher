@@ -7,6 +7,13 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+### Fixed
+
+- Voting feedback (gold highlight, "+1" float, "Stimme gezählt!" message) now
+  always targets the credited teacher's card, never the one actually clicked.
+  Previously a misclick against Octavian flashed briefly on the wrong card
+  before switching, which gave the rig away.
+
 ### Added
 
 - Initial static single-page site (`index.html`, `style.css`, `script.js`, `teachers.js`).
