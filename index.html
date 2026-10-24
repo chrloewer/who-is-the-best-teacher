@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>[teacherbook] – Wer ist dein Lieblingslehrer?</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <header class="topbar">
+    <div class="topbar-inner">
+      <span class="wordmark">[teacherbook]</span>
+      <nav class="toplinks">
+        <span>home</span><span>search</span><span>global</span><span>social net</span><span>invite</span><span>faq</span>
+      </nav>
+    </div>
+  </header>
+
+  <div class="page">
+    <aside class="sidebar">
+      <div class="sidebox">
+        <div class="sidebox-title">quick search</div>
+        <input type="text" class="fake-search" placeholder="Lehrer suchen…" disabled>
+      </div>
+      <ul class="sidelinks">
+        <li>My Profile</li>
+        <li>My Teachers</li>
+        <li>My Grades</li>
+        <li>My Detentions</li>
+        <li>My Privacy</li>
+      </ul>
+    </aside>
+
+    <main id="app" class="main">
+      <!-- Start screen -->
+      <section id="view-start" class="view card active">
+        <div class="card-header">Welcome to Teacherbook</div>
+        <div class="card-body center">
+          <h1 class="title">[teacherbook]</h1>
+          <p class="subtitle">Wer ist dein Lieblingslehrer?</p>
+          <p class="blurb">
+            Teacherbook is an online directory that connects people through
+            schools. Vote in <strong>7 rounds</strong> to find out who the
+            best teacher really is. Completely fair. Totally scientific.
+          </p>
+          <div class="mugshots" id="start-mugshots" aria-hidden="true"></div>
+          <button id="btn-start" class="btn btn-big">Los geht's!</button>
+        </div>
+      </section>
+
+      <!-- Voting rounds -->
+      <section id="view-vote" class="view card">
+        <div class="card-header">
+          <span id="round-label">Runde 1 von 7</span>
+          <span class="hint">Klick auf deinen Favoriten</span>
+        </div>
+        <div class="progress" role="progressbar" aria-valuemin="0" aria-valuemax="7" aria-valuenow="0">
+          <div class="progress-fill" id="progress-fill"></div>
+        </div>
+        <div class="card-body">
+          <div class="pair" id="pair"></div>
+          <p class="vs-note">Wer ist besser? Klick auf das Foto.</p>
+        </div>
+      </section>
+
+      <!-- Winner screen -->
+      <section id="view-winner" class="view card">
+        <div class="card-header">Ergebnis</div>
+        <div class="card-body center">
+          <h1 class="winner-headline">And the Winner is</h1>
+          <div class="winner-wrap">
+            <div class="crown" aria-hidden="true">👑</div>
+            <img id="winner-img" class="winner-img" src="assets/teachers/octavian.jpg" alt="Octavian">
+            <div class="trophy" aria-hidden="true">🏆</div>
+          </div>
+          <div id="winner-name" class="winner-name">Octavian</div>
+          <p class="winner-sub">Mit überwältigender, absolut ehrlicher Mehrheit.</p>
+
+          <div class="tally-box">
+            <div class="tally-title">Offizielle Stimmenauszählung</div>
+            <div id="tally" class="tally"></div>
+          </div>
+
+          <button id="btn-again" class="btn btn-big">Nochmal spielen</button>
+        </div>
+      </section>
+    </main>
+  </div>
+
+  <footer class="footer">
+    about &nbsp; contact &nbsp; faq &nbsp; terms &nbsp; privacy<br>
+    a parody production &copy; 2026 · not affiliated with Facebook or Meta
+  </footer>
+
+  <canvas id="confetti" aria-hidden="true"></canvas>
+
+  <script src="teachers.js"></script>
+  <script src="script.js"></script>
+</body>
+</html>
