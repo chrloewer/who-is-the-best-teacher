@@ -4,7 +4,9 @@
 //   * 7 voting rounds. On every second round (2, 4, 6) Octavian is one of the
 //     two teachers shown; on rounds 1, 3, 5, 7 he never appears.
 //   * When Octavian is on screen, HE gets the vote no matter which photo the
-//     user clicks. In all other rounds the clicked teacher gets the vote.
+//     user clicks — and the yellow "voted" highlight animation always plays
+//     on OCTAVIAN'S card, never on the one actually clicked, so it visually
+//     looks exactly like the user picked him even when they didn't.
 //   * The final winner is ALWAYS Octavian, hardcoded, independent of the tally.
 //
 // Hand-traced example session (sides are random, picks are illustrative):
@@ -177,22 +179,17 @@
     const credited = octavianShown ? octavian : clicked;
     state.tally[credited.id] += 1;
 
-    // Feedback: the clicked card always pops so the click "did something".
-    cardEl.classList.add("voted");
-    floatText(evt, cardEl, "+1");
+    // Always animate the CREDITED card, never the one that was actually
+    // clicked — so when Octavian is on screen it visually looks exactly
+    // like the user clicked him, even if they clicked the other teacher.
+    // The misclicked card gets no feedback at all; nothing reveals the rig.
+    const creditedCardEl = octavianShown
+      ? pairEl.querySelector('[data-id="' + OCTAVIAN_ID + '"]')
+      : cardEl;
 
-    if (octavianShown && clicked.id !== OCTAVIAN_ID) {
-      // The user picked the challenger... shake it and quietly award Octavian.
-      const octCard = pairEl.querySelector('[data-id="' + OCTAVIAN_ID + '"]');
-      setTimeout(() => {
-        cardEl.classList.remove("voted");
-        cardEl.classList.add("rigged");
-        if (octCard) octCard.classList.add("voted");
-        noteEl.textContent = "Stimme gezählt! (für Octavian)";
-      }, 300);
-    } else {
-      noteEl.textContent = "Stimme gezählt!";
-    }
+    creditedCardEl.classList.add("voted");
+    floatText(creditedCardEl, "+1");
+    noteEl.textContent = "Stimme gezählt!";
 
     progressFill.style.width = (state.round / TOTAL_ROUNDS * 100) + "%";
     progressBar.setAttribute("aria-valuenow", String(state.round));
@@ -204,16 +201,15 @@
     }, FEEDBACK_MS);
   }
 
-  function floatText(evt, cardEl, text) {
+  function floatText(cardEl, text) {
     const el = document.createElement("div");
     el.className = "plus-one";
     el.textContent = text;
     const rect = cardEl.getBoundingClientRect();
-    // keyboard "clicks" report 0,0 — fall back to the card center
-    const x = evt.clientX || rect.left + rect.width / 2;
-    const y = evt.clientY || rect.top + rect.height / 2;
-    el.style.left = x + "px";
-    el.style.top = y + "px";
+    // Always centered on the credited card, not the click point — this
+    // must point at Octavian when he's the (rigged) credited teacher.
+    el.style.left = (rect.left + rect.width / 2) + "px";
+    el.style.top = (rect.top + rect.height / 2) + "px";
     document.body.appendChild(el);
     setTimeout(() => el.remove(), 1000);
   }
